@@ -1,8 +1,9 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 const TextFieldWrapperValidate = () => {
   const [input, setInput] = useState("");
+  const [outPut, setOutput] = useState("");
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
@@ -20,12 +21,23 @@ const TextFieldWrapperValidate = () => {
       return;
     }
     // convert the input to array by spliting by comma
-    const numbers = input.split(",");
+    let numbers = input.split(",");
+    // clean array on any empty element
+    numbers = numbers.filter((num) => num !== "");
 
     // check if the array contains numbers only
-    const isNumbersOnly = numbers.every((num) => typeof num === "number");
+    const isNumbersOnly = numbers.every((num) => {
+      return !isNaN(parseInt(num));
+    });
 
-    console.log(isNumbersOnly);
+    if (!isNumbersOnly) {
+      setError(true);
+      setErrMsg("Input should only contain numbers.");
+      return;
+    }
+
+    const orderDesc = numbers.sort((a, b) => b - a).join(",");
+    setOutput(orderDesc);
   };
 
   return (
@@ -48,6 +60,15 @@ const TextFieldWrapperValidate = () => {
           Save
         </Button>
       </Grid>
+
+      {outPut && (
+        <Grid item xs={12} md={12}>
+          <Stack width="100%" alignItems="center" direction="row">
+            <Typography fontWeight="bolder">Output: &nbsp;&nbsp;&nbsp;&nbsp;</Typography>
+            <Typography>{outPut}</Typography>
+          </Stack>
+        </Grid>
+      )}
     </Grid>
   );
 };
