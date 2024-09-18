@@ -56,6 +56,7 @@ const TextFieldWrapperValidate = () => {
           variant="contained"
           sx={{ height: "100%", width: 200 }}
           onClick={validateAndSubmit}
+          fullWidth
         >
           Save
         </Button>
