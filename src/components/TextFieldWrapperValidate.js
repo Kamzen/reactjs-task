@@ -54,7 +54,7 @@ const TextFieldWrapperValidate = () => {
       <Grid item xs={12} md={2}>
         <Button
           variant="contained"
-          sx={{ height: "100%", width: 200 }}
+          sx={{ height: "100%", width: '100%' }}
           onClick={validateAndSubmit}
           fullWidth
         >
